@@ -1,0 +1,140 @@
+---
+title: "project"
+author: "you!"
+date: "6/2/2020"
+output: html_document
+---
+
+
+#Question 1
+
+```{r}
+#read the X,y train data, and subject number separately and combine together
+X_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/X_train.txt',header = F,sep = '')
+#dim(X_train)  #each X variable has 561 features,there are 7352 train records
+y_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/y_train.txt',header = F,sep = '')
+names(y_train)='label'  #set the column name for easier identification
+
+
+
+subject_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/subject_train.txt',header = F,sep = '')
+        
+
+names(subject_train)='subject'    
+train<-cbind(subject_train,y_train,X_train) #combine the train        X,y data
+
+
+
+#read the X,y test data, and subject numbe  separately and combine together
+X_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/X_test.txt',header = F,sep = '')
+#dim(X_test) #there are 2947 test records
+y_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/y_test.txt',header = F,sep = '')
+
+subject_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/subject_test.txt',header = F,sep = '')
+
+
+names(y_test)='label'  #set the column name 
+names(subject_test)='subject'    
+#combine the test X,y data
+test<-cbind(subject_test,y_test,X_test) 
+
+head(test)
+
+#combine train and test sets
+combined=rbind(train,test) 
+head(combined)
+
+```
+
+
+#Q2
+```{r}
+#load the features
+feature<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/features.txt',header = F,sep = '')
+head(feature)
+
+
+#Q4
+names(combined)<-c('subject','label',feature$V2)#rename the columns of combined data
+head(combined)
+```
+
+```{r}
+#select features related to mean() and std()
+selectedMeasures<-combined[,grepl('mean()|std()',names(combined))]
+selectedMeasures
+
+```
+
+
+
+#Q3
+```{r}
+
+actLable<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/activity_labels.txt',header = F,sep='')
+actLable
+
+
+#look up the label in the activity_labels file and replace it with descriptive names
+combined$label<-sapply(combined$label,FUN =function(x) {actLable[x,]$V2})
+#combined$label
+head(combined)
+
+```
+
+
+
+
+
+
+
+#Q4(already done in Q2)
+
+
+
+
+#Q5
+```{r}
+#name the feature names unique
+index=which(duplicated(names(combined))) #find the duplicated index
+#names(combined[,index])
+colnames(combined)[index]=make.names(names(combined[,index]))#for the duplicated index, make new names for each of them so they are unique
+#duplicated(names(combined)) #check, make sure colnames are unique
+
+
+
+library(dplyr)
+combined%>%
+        group_by(subject,label)%>%
+        summarise_all(.funs = mean)
+
+```
+
+
+
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
