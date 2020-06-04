@@ -64,9 +64,9 @@ head(combined)
 
 ```{r}
 #select features related to mean() and std()
-selectedMeasures<-combined[,grepl('mean()|std()',names(combined))]
-selectedMeasures
+selectedMeasures<-combined[,grepl('mean()|std()|subject|label',names(combined))]
 
+selectedMeasures
 ```
 
 
@@ -79,9 +79,9 @@ actLable
 
 
 #look up the label in the activity_labels file and replace it with descriptive names
-combined$label<-sapply(combined$label,FUN =function(x) {actLable[x,]$V2})
+selectedMeasures$label<-sapply(combined$label,FUN =function(x) {actLable[x,]$V2})
 #combined$label
-head(combined)
+head(selectedMeasures)
 
 ```
 
@@ -99,15 +99,15 @@ head(combined)
 #Q5
 ```{r}
 #name the feature names unique
-index=which(duplicated(names(combined))) #find the duplicated index
-#names(combined[,index])
-colnames(combined)[index]=make.names(names(combined[,index]))#for the duplicated index, make new names for each of them so they are unique
-#duplicated(names(combined)) #check, make sure colnames are unique
+index=which(duplicated(names(selectedMeasures))) #find the duplicated index
+#names(selectedMeasures[,index])
+colnames(selectedMeasures)[index]=make.names(names(selectedMeasures[,index]))#for the duplicated index, make new names for each of them so they are unique
+#duplicated(names(selectedMeasures)) #check, make sure colnames are unique
 
 
 
 library(dplyr)
-dataMean=combined%>%
+dataMean=selectedMeasures%>%
         group_by(subject,label)%>%
         summarise_all(.funs = mean)
 dataMean
@@ -122,12 +122,12 @@ dataMean
 ```
 
 ```{r}
-write.table(combined,file = 'tidy_combined.txt')
+write.table(selectedMeasures,file = 'tidy_combined.txt')
 write.table(dataMean,file = 'tidy_mean.txt')
 ```
 
 ```{r}
-combined
+getwd()
 ```
 
 ```{r}
