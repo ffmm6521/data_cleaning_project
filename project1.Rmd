@@ -12,15 +12,16 @@ output: html_document
 #Question 1
 
 ```{r}
+
 #read the X,y train data, and subject number separately and combine together
-X_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/X_train.txt',header = F,sep = '')
+X_train<-read.delim('./UCI\ HAR\ Dataset/train/X_train.txt',header = F,sep = '')
 #dim(X_train)  #each X variable has 561 features,there are 7352 train records
-y_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/y_train.txt',header = F,sep = '')
+y_train<-read.delim('./UCI\ HAR\ Dataset/train/y_train.txt',header = F,sep = '')
 names(y_train)='label'  #set the column name for easier identification
 
 
 
-subject_train<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/train/subject_train.txt',header = F,sep = '')
+subject_train<-read.delim('./UCI\ HAR\ Dataset/train/subject_train.txt',header = F,sep = '')
         
 
 names(subject_train)='subject'    
@@ -29,11 +30,11 @@ train<-cbind(subject_train,y_train,X_train) #combine the train        X,y data
 
 
 #read the X,y test data, and subject numbe  separately and combine together
-X_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/X_test.txt',header = F,sep = '')
+X_test<-read.delim('./UCI\ HAR\ Dataset/test/X_test.txt',header = F,sep = '')
 #dim(X_test) #there are 2947 test records
-y_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/y_test.txt',header = F,sep = '')
+y_test<-read.delim('./UCI\ HAR\ Dataset/test/y_test.txt',header = F,sep = '')
 
-subject_test<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/test/subject_test.txt',header = F,sep = '')
+subject_test<-read.delim('./UCI\ HAR\ Dataset/test/subject_test.txt',header = F,sep = '')
 
 
 names(y_test)='label'  #set the column name 
@@ -53,7 +54,7 @@ head(combined)
 #Q2
 ```{r}
 #load the features
-feature<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/features.txt',header = F,sep = '')
+feature<-read.delim('./UCI\ HAR\ Dataset/features.txt',header = F,sep = '')
 head(feature)
 
 
@@ -74,7 +75,7 @@ selectedMeasures
 #Q3
 ```{r}
 
-actLable<-read.delim('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data/UCI\ HAR\ Dataset/activity_labels.txt',header = F,sep='')
+actLable<-read.delim('./UCI\ HAR\ Dataset/activity_labels.txt',header = F,sep='')
 actLable
 
 
@@ -123,11 +124,11 @@ dataMean
 
 ```{r}
 write.table(selectedMeasures,file = 'tidy_combined.txt')
-write.table(dataMean,file = 'tidy_mean.txt')
+write.table(dataMean, row.name=FALSE,file = 'xx.txt')
 ```
 
 ```{r}
-getwd()
+knitr::purl('project1.Rmd','run_analysis.R')
 ```
 
 ```{r}
