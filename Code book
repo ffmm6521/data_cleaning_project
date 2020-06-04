@@ -1,0 +1,5 @@
+Code book
+
+The tidy_combined.txt: shows the variables and values for both the train and test data sets. The first 7352 rows are from the training sets, and the remaining 2947 rows are from the test data sets.  The 'subject' column shows the subject who performed the activity, ranging from 1 to 30. The 'label' column shows the activity name.  The rest of 79 (except the first 2 columns)columns are either mean or standard deviation of some variables and the column names are selected from the original feature_info.txt. 
+
+The tidy_mean.txt: shows the average of each variable for each activity and each subject. There are totally 180 average values, 6(number of activities) * 30(number of subject). The columns are the 79 features related to mean and standard deviation.For all the units, explanation of specific feature info, please refer to the original files.
