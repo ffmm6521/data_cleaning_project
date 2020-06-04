@@ -3,7 +3,7 @@
 
 
 ## --------------------------------------------------------------------------------------------------------------------------------------------------------------
-setwd('/Users/minfei/Desktop/R/Getting\ and\ cleaning\ data')
+
 #read the X,y train data, and subject number separately and combine together
 X_train<-read.delim('./UCI\ HAR\ Dataset/train/X_train.txt',header = F,sep = '')
 #dim(X_train)  #each X variable has 561 features,there are 7352 train records
@@ -98,7 +98,7 @@ write.table(dataMean, row.name=FALSE,file = 'xx.txt')
 
 
 ## --------------------------------------------------------------------------------------------------------------------------------------------------------------
-getwd()
+knitr::purl('project1.Rmd','run_analysis.R')
 
 
 ## --------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -4,15 +4,13 @@ author: "you!"
 date: "6/2/2020"
 output: html_document
 ---
-```{r}
 
-```
 
 
 #Question 1
 
 ```{r}
-
+#set working directory
 #read the X,y train data, and subject number separately and combine together
 X_train<-read.delim('./UCI\ HAR\ Dataset/train/X_train.txt',header = F,sep = '')
 #dim(X_train)  #each X variable has 561 features,there are 7352 train records
